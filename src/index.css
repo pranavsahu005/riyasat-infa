@@ -1,0 +1,423 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  :root {
+    --background: 80 20% 95%;
+    --foreground: 150 30% 12%;
+
+    --card: 80 15% 92%;
+    --card-foreground: 150 30% 12%;
+
+    --popover: 80 20% 95%;
+    --popover-foreground: 150 30% 12%;
+
+    --primary: 150 35% 18%;
+    --primary-foreground: 48 60% 88%;
+
+    --secondary: 80 18% 88%;
+    --secondary-foreground: 150 30% 15%;
+
+    --muted: 80 12% 90%;
+    --muted-foreground: 150 10% 45%;
+
+    --accent: 42 65% 55%;
+    --accent-foreground: 150 35% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 80 15% 82%;
+    --input: 80 15% 82%;
+    --ring: 42 65% 55%;
+
+    --radius: 0.75rem;
+
+    /* Custom luxury tokens */
+    --gold: 42 65% 55%;
+    --gold-light: 42 55% 72%;
+    --gold-dark: 42 70% 38%;
+    --forest: 150 35% 18%;
+    --forest-deep: 150 40% 10%;
+    --forest-light: 150 25% 30%;
+    --pista: 80 25% 85%;
+    --pista-light: 80 20% 93%;
+    --pista-dark: 80 20% 72%;
+    --cream: 45 30% 96%;
+    --cream-warm: 40 35% 92%;
+
+    --sidebar-background: 150 35% 10%;
+    --sidebar-foreground: 80 20% 90%;
+    --sidebar-primary: 42 65% 55%;
+    --sidebar-primary-foreground: 150 35% 10%;
+    --sidebar-accent: 150 25% 20%;
+    --sidebar-accent-foreground: 80 20% 90%;
+    --sidebar-border: 150 20% 20%;
+    --sidebar-ring: 42 65% 55%;
+
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  .dark {
+    --background: 150 40% 6%;
+    --foreground: 80 20% 92%;
+    --card: 150 35% 10%;
+    --card-foreground: 80 20% 92%;
+    --popover: 150 35% 10%;
+    --popover-foreground: 80 20% 92%;
+    --primary: 42 65% 55%;
+    --primary-foreground: 150 35% 10%;
+    --secondary: 150 25% 15%;
+    --secondary-foreground: 80 20% 90%;
+    --muted: 150 20% 15%;
+    --muted-foreground: 80 10% 60%;
+    --accent: 42 65% 55%;
+    --accent-foreground: 150 35% 10%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 150 20% 18%;
+    --input: 150 20% 18%;
+    --ring: 42 65% 55%;
+    --sidebar-background: 150 40% 6%;
+    --sidebar-foreground: 80 20% 92%;
+    --sidebar-primary: 42 65% 55%;
+    --sidebar-primary-foreground: 150 40% 6%;
+    --sidebar-accent: 150 25% 12%;
+    --sidebar-accent-foreground: 80 20% 92%;
+    --sidebar-border: 150 20% 12%;
+    --sidebar-ring: 42 65% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+}
+
+/* =============================
+   KEYFRAMES
+   ============================= */
+
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-hint-bounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50%       { transform: translateY(6px); opacity: 0.5; }
+}
+
+/* =============================
+   COMPONENT LAYER
+   ============================= */
+
+@layer components {
+  /* --- Word split animation helper --- */
+  .word-clip {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: baseline;
+  }
+  .word-inner {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+
+  /* --- Luxury heading --- */
+  .luxury-heading {
+    @apply text-foreground;
+    font-family: var(--font-heading);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .gold-text {
+    color: hsl(var(--gold));
+  }
+
+  /* Refine golden color palette for a smoother look */
+  .gold-gradient-text {
+    background: linear-gradient(135deg, #b8860b 0%, #e5c97a 50%, #8b6508 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gold-border {
+    border-color: hsl(var(--gold));
+  }
+
+  .forest-bg {
+    background-color: hsl(var(--forest-deep));
+  }
+
+  .pista-bg {
+    background-color: hsl(var(--pista));
+  }
+
+  .cream-bg {
+    background-color: hsl(var(--cream));
+  }
+
+  /* --- Luxury card --- */
+  .luxury-card {
+    @apply rounded-2xl overflow-hidden;
+    background-color: hsl(var(--cream));
+    box-shadow: 0 4px 30px hsl(var(--forest) / 0.06);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .luxury-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 55px hsl(var(--forest) / 0.13);
+  }
+
+  /* --- Luxury buttons — refined gold, subtle gradient border --- */
+  .luxury-btn {
+    @apply inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-medium tracking-wider uppercase;
+    font-family: var(--font-body);
+    border: 1px solid transparent;
+    color: #b8860b;
+    background:
+      linear-gradient(hsl(var(--background) / 1) 0 0) padding-box,
+      linear-gradient(45deg, #b8860b, #e5c97a, #8b6508) border-box;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    letter-spacing: 0.15em;
+  }
+  .luxury-btn:hover {
+    background: linear-gradient(45deg, #b8860b, #e5c97a, #b8860b);
+    color: hsl(var(--forest-deep));
+    box-shadow: 0 10px 40px rgba(184, 134, 11, 0.25);
+  }
+
+  .luxury-btn-solid {
+    @apply inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-medium tracking-wider uppercase;
+    font-family: var(--font-body);
+    background: linear-gradient(45deg, #b8860b, #e5c97a, #8b6508);
+    color: white; /* Changed for better visibility */
+    font-weight: 600;
+    border: 1px solid transparent;
+    box-shadow: 0 4px 20px rgba(184, 134, 11, 0.2);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    letter-spacing: 0.15em;
+  }
+  .luxury-btn-solid:hover {
+    box-shadow: 0 10px 50px rgba(184, 134, 11, 0.4);
+    transform: translateY(-2px);
+    color: white;
+  }
+
+  /* --- Scroll reveal --- */
+  .reveal-up {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-up.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* --- Section padding --- */
+  .section-padding {
+    @apply px-6 py-24 md:px-12 lg:px-24 lg:py-32;
+  }
+
+  /* --- Mobile bottom nav --- */
+  .mobile-nav-bar {
+    @apply fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center py-3 px-2;
+    background: hsl(var(--forest-deep) / 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid hsl(var(--gold) / 0.15);
+  }
+
+  /* --- Icon gold ring --- */
+  .icon-gold-ring {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(hsl(var(--pista) / 0.22) 0 0) padding-box,
+      linear-gradient(130deg, #C8A44B40, #E5C97Acc, #A8872A4d) border-box;
+  }
+
+  /* --- Gold divider line --- */
+  .gold-divider {
+    width: 78px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #D4B15E CC, transparent);
+  }
+
+  /* --- Footer gold top border --- */
+  .footer-gold-top {
+    border-top: 1px solid transparent;
+    border-image: linear-gradient(90deg, transparent, #D4B15E 8C, transparent) 1;
+  }
+
+  /* --- Map embed --- */
+  .map-embed-wrap {
+    @apply overflow-hidden rounded-2xl;
+    border: 1px solid hsl(var(--gold) / 0.2);
+    box-shadow: 0 18px 40px hsl(var(--forest) / 0.1);
+    background: hsl(var(--cream) / 0.8);
+  }
+
+  .map-embed-frame {
+    width: 100%;
+    min-height: 430px;
+  }
+
+  /* --- Estate Marquee (infinite auto-scroll slider) --- */
+  .estate-marquee-track {
+    animation: marquee-scroll 28s linear infinite;
+    will-change: transform;
+  }
+  .estate-marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  /* Kept for backward compat if referenced anywhere */
+  .estate-slider-viewport {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+  .estate-slider-track {
+    display: flex;
+    gap: 1rem;
+    width: max-content;
+    min-width: 100%;
+    scroll-snap-type: x mandatory;
+  }
+  .estate-slide {
+    flex: 0 0 78vw;
+    max-width: 360px;
+    scroll-snap-align: start;
+  }
+
+
+
+  /* --- Footer link text sizes --- */
+  .luxury-footer-link {
+    font-size: 14px;
+    line-height: 1.7;
+    color: hsl(var(--cream) / 0.62);
+    font-family: var(--font-body);
+    transition: color 0.3s ease;
+  }
+  .luxury-footer-link:hover {
+    color: hsl(var(--cream));
+  }
+
+  /* --- Scroll hint animation for hero --- */
+  .animate-scroll-hint {
+    animation: scroll-hint-bounce 1.6s ease-in-out infinite;
+  }
+}
+
+/* =============================
+   RESPONSIVE OVERRIDES
+   ============================= */
+
+@media (min-width: 768px) {
+  .estate-slide {
+    flex-basis: 420px;
+    max-width: 420px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .map-embed-frame {
+    min-height: 360px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .map-embed-frame {
+    min-height: 300px;
+  }
+
+
+
+  /* Footer text on mobile */
+  footer .font-body {
+    font-size: 13px;
+  }
+
+  /* Ensure gallery grid at least 2 cols on wider mobile */
+  .gallery-item:nth-child(n) {
+    break-inside: avoid;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .footer-gold-top .gold-divider {
+    width: 100%;
+  }
+
+  .footer-gold-top input,
+  .footer-gold-top button {
+    width: 100%;
+  }
+
+  .section-padding {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* Prevent any accidental overflow */
+  img {
+    max-width: 100%;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+  }
+
+  /* 3D Flip Utilities */
+  .perspective-1000 { perspective: 1000px; }
+  .transform-style-3d { transform-style: preserve-3d; }
+  .backface-hidden { backface-visibility: hidden; }
+  .rotate-y-180 { transform: rotateY(180deg); }
+}
